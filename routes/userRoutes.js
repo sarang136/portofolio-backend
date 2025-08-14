@@ -3,7 +3,7 @@ const userRouter = express.Router();
 const userDetails = require('../modals/userDetails');
 const { userAuth } = require('../middleware/auth');
 
-userRouter.post('/post-yourself', userAuth , async (req, res) => {
+userRouter.post('/post-yourself' , async (req, res) => {
     try {
         const { yourName, email, profileDescription, github, linkedin } = req.body;
         if (!yourName || !email || !profileDescription || !github || !linkedin) {

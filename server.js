@@ -9,21 +9,16 @@ const skillsRouter = require('./routes/skillsRoutes');
 const userRouter = require('./routes/userRoutes');
 const cookieParser = require('cookie-parser');
 
-app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "https://portofolio-frontend-olive.vercel.app"
-  ],
-  credentials: true
-}));// {origin: '*'}
+app.use(cors());
+// {origin: '*'}
 
 app.use(express.json());
 app.use(cookieParser())
-app.use('/', adminRouter)
-app.use('/', projectRouter)
-app.use('/', expRouter)
-app.use('/', skillsRouter)
-app.use('/', userRouter)
+app.use('/',adminRouter)
+app.use('/',projectRouter)
+app.use('/',expRouter)
+app.use('/',skillsRouter)
+app.use('/',userRouter)
 
 
 connectDb()
