@@ -53,11 +53,19 @@ adminRouter.post('/admin-login', async (req, res) => {
         // console.log(token)
         const isProduction = process.env.NODE_ENV === "production";
 
+        // res.cookie("token", token, {
+        //     httpOnly: true,
+        //     secure: true,       // must be true because Render is HTTPS
+        //     sameSite: "none"    // must be none for cross-site cookies
+        // });
+
+
         res.cookie("token", token, {
             httpOnly: true,
-            secure: true,       // must be true because Render is HTTPS
-            sameSite: "none"    // must be none for cross-site cookies
+            secure: true,     
+            sameSite: "none"   
         });
+
 
         // For https
         // res.cookie("token", token, {
