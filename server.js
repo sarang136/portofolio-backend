@@ -7,16 +7,18 @@ const cors = require('cors');
 const expRouter = require('./routes/expRoutes');
 const skillsRouter = require('./routes/skillsRoutes');
 const userRouter = require('./routes/userRoutes');
+const cookieParser = require('cookie-parser');
 
-app.use(cors());
+app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
 // {origin: '*'}
 
 app.use(express.json());
-app.use('/',adminRouter)
-app.use('/',projectRouter)
-app.use('/',expRouter)
-app.use('/',skillsRouter)
-app.use('/',userRouter)
+app.use(cookieParser())
+app.use('/', adminRouter)
+app.use('/', projectRouter)
+app.use('/', expRouter)
+app.use('/', skillsRouter)
+app.use('/', userRouter)
 
 
 connectDb()
