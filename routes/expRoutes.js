@@ -19,5 +19,13 @@ expRouter.post('/post/experience', async (req, res) => {
     }
 })
 
+expRouter.get('/get/experience', async (req, res) => {
+    
+    const expGot = await Experience.find({})
+    if(!expGot){
+        return res.status(404).json({ msg: "No Experience Found" })
+    }
+    res.status(200).json({ msg: "Experience Retrieved Successfully", expGot })
+})
 
 module.exports = expRouter;
