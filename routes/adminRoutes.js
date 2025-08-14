@@ -54,17 +54,23 @@ adminRouter.post('/admin-login', async (req, res) => {
         const isProduction = process.env.NODE_ENV === "production";
 
         res.cookie("token", token, {
-            sameSite: "lax",
             httpOnly: true,
-            secure: false,
+            secure: true,       // must be true because Render is HTTPS
+            sameSite: "none"    // must be none for cross-site cookies
         });
 
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: false,      // ❌ don't use true locally
+            sameSite: "lax"     // lax works fine for local dev
+        });
         // For https
         // res.cookie("token", token, {
         //     httpOnly: true,
         //     secure: true,      // HTTPS pe true
         //     sameSite: "none"   // cross-site requests allow karega
         // });
+
         res.status(200).send({ message: "Admin Logged In ", admin: adminFound })
     } catch (error) {
         res.status(500).json({ error: error.message });
