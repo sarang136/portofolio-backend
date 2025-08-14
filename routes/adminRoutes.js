@@ -59,11 +59,6 @@ adminRouter.post('/admin-login', async (req, res) => {
             sameSite: "none"    // must be none for cross-site cookies
         });
 
-        res.cookie("token", token, {
-            httpOnly: true,
-            secure: false,      // ❌ don't use true locally
-            sameSite: "lax"     // lax works fine for local dev
-        });
         // For https
         // res.cookie("token", token, {
         //     httpOnly: true,
