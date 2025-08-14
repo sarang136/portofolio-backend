@@ -4,7 +4,9 @@ const projects = require('../modals/projectSchema')
 
 projectRouter.post('/add-project', async (req, res) => {
     try {
+        // console.log(req.body);
         const { projectName, projectDescription, skillsUsed } = req.body;
+        
         if (!projectName || !projectDescription || !skillsUsed) {
             return res.status(400).json({ message: 'Please fill in all fields' });
         }

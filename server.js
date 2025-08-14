@@ -4,6 +4,8 @@ const adminRouter = require('./routes/adminRoutes');
 const projectRouter = require('./routes/projectRoutes');
 const app = express();
 const cors = require('cors');
+const expRouter = require('./routes/expRoutes');
+const skillsRouter = require('./routes/skillsRoutes');
 
 app.use(cors());
 // {origin: '*'}
@@ -11,6 +13,8 @@ app.use(cors());
 app.use(express.json());
 app.use('/',adminRouter)
 app.use('/',projectRouter)
+app.use('/',expRouter)
+app.use('/',skillsRouter)
 
 
 connectDb()
