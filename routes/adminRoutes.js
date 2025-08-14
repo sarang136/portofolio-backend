@@ -54,7 +54,9 @@ adminRouter.post('/admin-login', async (req, res) => {
         const isProduction = process.env.NODE_ENV === "production";
 
         res.cookie("token", token, {
-            sameSite: "none"
+            sameSite: "none",
+            httpOnly: true,
+            secure: true, // agar https use kar raha hai
         });
         res.status(200).send({ message: "Admin Logged In ", admin: adminFound })
     } catch (error) {
