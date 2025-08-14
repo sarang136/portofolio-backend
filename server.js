@@ -6,6 +6,7 @@ const app = express();
 const cors = require('cors');
 const expRouter = require('./routes/expRoutes');
 const skillsRouter = require('./routes/skillsRoutes');
+const userRouter = require('./routes/userRoutes');
 
 app.use(cors());
 // {origin: '*'}
@@ -15,6 +16,7 @@ app.use('/',adminRouter)
 app.use('/',projectRouter)
 app.use('/',expRouter)
 app.use('/',skillsRouter)
+app.use('/',userRouter)
 
 
 connectDb()
