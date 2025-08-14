@@ -54,10 +54,17 @@ adminRouter.post('/admin-login', async (req, res) => {
         const isProduction = process.env.NODE_ENV === "production";
 
         res.cookie("token", token, {
-            sameSite: "none",
+            sameSite: "lax",
             httpOnly: true,
-            secure: true, // agar https use kar raha hai
+            secure: false,
         });
+
+        // For https
+        // res.cookie("token", token, {
+        //     httpOnly: true,
+        //     secure: true,      // HTTPS pe true
+        //     sameSite: "none"   // cross-site requests allow karega
+        // });
         res.status(200).send({ message: "Admin Logged In ", admin: adminFound })
     } catch (error) {
         res.status(500).json({ error: error.message });
