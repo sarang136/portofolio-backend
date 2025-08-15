@@ -11,7 +11,7 @@ const skillsRouter = require('./routes/skillsRoutes');
 const userRouter = require('./routes/userRoutes');
 const cookieParser = require('cookie-parser');
 
-app.use(cors({origin: `${process.env.VITE_FRONT_END}`));
+app.use(cors(`${process.env.VITE_FRONT_END}`))
 
 
 app.use(express.json());
