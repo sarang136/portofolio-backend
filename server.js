@@ -1,3 +1,5 @@
+const dotenv = require('dotenv');
+dotenv.config();
 const express = require('express');
 const connectDb = require('./databasr/db');
 const adminRouter = require('./routes/adminRoutes');
@@ -8,10 +10,8 @@ const expRouter = require('./routes/expRoutes');
 const skillsRouter = require('./routes/skillsRoutes');
 const userRouter = require('./routes/userRoutes');
 const cookieParser = require('cookie-parser');
-const dotenv = require('dotenv');
-dotenv.config();
 
-app.use(cors({origin: `${process.env.FRONT_END}`, credentials: true}));
+app.use(cors({origin: `${process.env.VITE_FRONT_END}`));
 
 
 app.use(express.json());
