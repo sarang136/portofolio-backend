@@ -1,8 +1,9 @@
 const express = require('express')
 const expRouter = express.Router();
-const Experience = require('../modals/expSchema')
+const Experience = require('../modals/expSchema');
+const { userAuth } = require('../middleware/auth');
 
-expRouter.post('/post/experience', async (req, res) => {
+expRouter.post('/post/experience',userAuth, async (req, res) => {
     try {
         const { companyName, jobDescription, fromDate, toDate, address, jobRole, jobType } = req.body;
         if (!companyName || !jobDescription || !fromDate || !toDate || !address || !jobRole || !jobType) {

@@ -1,8 +1,9 @@
 const express = require('express')
 const skillsRouter = express.Router();
-const Skills = require('../modals/skillsSchema')
+const Skills = require('../modals/skillsSchema');
+const { userAuth } = require('../middleware/auth');
 
-skillsRouter.post('/add/skills', async (req, res) => {
+skillsRouter.post('/add/skills',userAuth, async (req, res) => {
     const { skillName, image } = req.body;
     try {
         if (!skillName) {

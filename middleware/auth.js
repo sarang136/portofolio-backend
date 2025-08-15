@@ -4,21 +4,22 @@ const Admin = require('../modals/adminSchema');
 const userAuth = async (req, res, next) => {
     try {
         // Read cookie from request
-        const token = req.cookies.token; // not cookies.cookie
+        const {token} = req.cookies
         console.log("token:", token);
 
-        if (!token) {
-            return res.status(401).json({ message: "Token not provided" });
-        }
+        // if (!token) {
+        //     return res.status(401).json({ message: "Token not provided" });
+        // }
 
         // Verify token
         const decodedToken = jwt.verify(token, "ONLYUSERS");
-        console.log("decodedToken:", decodedToken.id);
+        console.log("decodedToken:", decodedToken);
+        const {email} = decodedToken; 
 
         // Find user in DB
-        const user = await Admin.findById(decodedToken.id);
+        const user = await Admin.findOne({email : email});
+        // console.log(user)
         console.log("user:", user);
-
         if (!user) {
             return res.status(401).json({ message: "User not found" });
         }

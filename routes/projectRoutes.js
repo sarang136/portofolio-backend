@@ -1,8 +1,9 @@
 const express = require('express');
 const projectRouter = express.Router();
-const projects = require('../modals/projectSchema')
+const projects = require('../modals/projectSchema');
+const { userAuth } = require('../middleware/auth');
 
-projectRouter.post('/add-project', async (req, res) => {
+projectRouter.post('/add-project',userAuth,  async (req, res) => {
     try {
         // console.log(req.body);
         const { projectName, projectDescription, skillsUsed } = req.body;
@@ -24,7 +25,7 @@ projectRouter.post('/add-project', async (req, res) => {
     }
 })
 
-projectRouter.patch('/edit-project/:id', async (req, res) => {
+projectRouter.patch('/edit-project/:id', userAuth, async (req, res) => {
     const id = req.params.id;
     const { projectName, projectDescription, skillsUsed } = req.body;
     try {

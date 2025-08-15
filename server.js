@@ -8,9 +8,11 @@ const expRouter = require('./routes/expRoutes');
 const skillsRouter = require('./routes/skillsRoutes');
 const userRouter = require('./routes/userRoutes');
 const cookieParser = require('cookie-parser');
+const dotenv = require('dotenv');
+dotenv.config();
 
-app.use(cors());
-// {origin: '*'}
+app.use(cors({origin: `${process.env.FRONT_END}`, credentials: true}));
+
 
 app.use(express.json());
 app.use(cookieParser())

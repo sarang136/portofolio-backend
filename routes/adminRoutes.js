@@ -10,9 +10,14 @@ const jwt = require('jsonwebtoken');
 adminRouter.post('/admin-register', async (req, res) => {
     try {
 
+
         const { name, email, password } = req.body;
         if (!name || !email || !password) {
             return res.status(400).json({ message: "Please fill in all fields" });
+        }
+        const existingAdmin = await admin.findOne({ email });
+        if(existingAdmin){
+            return res.status(400).json({ message: "Admin already exists" });
         }
         const hashedPassword = await bcrypt.hash(password, 10);
         if (!hashedPassword) {
@@ -41,19 +46,25 @@ adminRouter.post('/admin-login', async (req, res) => {
         if (!adminFound) {
             return res.status(400).json({ message: "Admin not found" })
         }
+        // const {id} = adminFound; 
         const isValidPassword = await bcrypt.compare(password, adminFound.password)
         if (!isValidPassword) {
             return res.status(400).json({ message: "Invalid password" })
         }
-        const token = jwt.sign({ _id: adminFound._id }, "ONLYUSERS")
+        const token = jwt.sign( email , "ONLYUSERS")
 
         if (!token) {
             return res.status(400).json({ message: "Token generation failed" })
         }
         // console.log(token)
-        const isProduction = process.env.NODE_ENV === "production";
+        // const isProduction = process.env.NODE_ENV === "production";
 
-        res.cookie("token", token);
+        res.cookie("token", token, {
+            secure: true,
+            sameSite: "none",
+            httpOnly: true,
+        });
+
         res.status(200).send({ message: "Admin Logged In ", admin: adminFound })
     } catch (error) {
         res.status(500).json({ error: error.message });
