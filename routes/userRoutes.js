@@ -3,14 +3,17 @@ const userRouter = express.Router();
 const userDetails = require('../modals/userDetails');
 const { userAuth } = require('../middleware/auth');
 
-userRouter.post('/post-yourself' , userAuth , async (req , res) => {
+userRouter.post('/post-yourself', userAuth, async (req, res) => {
     try {
         const { yourName, email, profileDescription, github, linkedin } = req.body;
         if (!yourName || !email || !profileDescription || !github || !linkedin) {
             return res.status(400).json({ message: 'Please fill in all fields.' });
         }
 
-        const userExists = await userDetails.find({email});
+        const userExists = await userDetails.find({ email : email});
+        if (userExists) {
+            return res.status(400).json({ message: 'Email already exists.' });
+        }
 
         const userSaved = await userDetails({
             yourName,
